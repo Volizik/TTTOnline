@@ -1,0 +1,54 @@
+.ttt-desc {
+    max-width: 500px;
+}
+
+.ttt-desc button {
+    position: relative;
+    width: 33.33%;
+    margin: auto;
+    background-color: transparent;
+    border-color: #000;
+}
+
+.ttt-desc button:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.ttt-desc button:nth-child(3n + 1) {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.ttt-desc button:nth-child(3n + 2) {
+    border-right: none;
+    border-top: none;
+}
+
+.ttt-desc button:nth-child(3n + 3) {
+    border-right: none;
+    border-top: none;
+}
+
+.ttt-desc button:nth-child(1n + 7) {
+    border-bottom: none;
+}
+
+.ttt-desc button:nth-child(1n + 4) {
+    margin-top: -3px;
+}
+
+.ttt-desc button span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+mat-card {
+    margin: 30px auto;
+    max-width: 500px
+}

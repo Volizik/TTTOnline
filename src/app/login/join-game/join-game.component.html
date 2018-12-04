@@ -1,0 +1,16 @@
+<div class="find-game">
+  <mat-form-field class="full-width">
+    <input matInput type="text" placeholder="Search game" [formControl]="searchControl">
+    <button mat-button matSuffix mat-icon-button aria-label="Search">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+<mat-action-list>
+  <button
+          mat-list-item
+          *ngFor="let game of filteredItems | async"
+          (click)="openPassModal(game)"
+  >{{ game.name }}</button>
+</mat-action-list>
