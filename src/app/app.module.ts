@@ -11,6 +11,7 @@ import {AppMaterialModule} from './app-material.module';
 import {LoginPassModalComponent} from './login/login-pass-modal/login-pass-modal.component';
 import {JoinGameComponent} from './login/join-game/join-game.component';
 import {CreateGameComponent} from './login/create-game/create-game.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import {CreateGameComponent} from './login/create-game/create-game.component';
         CreateGameComponent
     ],
     imports: [
+        HttpClientModule,
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,

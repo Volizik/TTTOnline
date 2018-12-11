@@ -1,9 +1,9 @@
-<form class="create-game-form">
+<form class="create-game-form" [formGroup]="newGameForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="full-width">
-    <input matInput placeholder="New game name">
+    <input matInput placeholder="New game name" formControlName="name">
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput placeholder="Password for game">
+    <input matInput placeholder="Password for game" formControlName="password">
   </mat-form-field>
-  <button mat-raised-button color="primary" class="full-width button-create">Create</button>
+  <button mat-raised-button color="primary" class="full-width button-create" type="submit" [disabled]="newGameForm.invalid">Create</button>
 </form>
