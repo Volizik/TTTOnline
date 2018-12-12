@@ -2,6 +2,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {StoreModule} from '@ngrx/store';
+
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -11,7 +14,7 @@ import {AppMaterialModule} from './app-material.module';
 import {LoginPassModalComponent} from './login/login-pass-modal/login-pass-modal.component';
 import {JoinGameComponent} from './login/join-game/join-game.component';
 import {CreateGameComponent} from './login/create-game/create-game.component';
-import {HttpClientModule} from '@angular/common/http';
+import {gameReducer} from './redux/game.reducer';
 
 @NgModule({
     declarations: [
@@ -29,7 +32,8 @@ import {HttpClientModule} from '@angular/common/http';
         FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
-        AppMaterialModule
+        AppMaterialModule,
+        StoreModule.forRoot({gameState: gameReducer})
     ],
     providers: [],
     entryComponents: [

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginService} from '../login.service';
-import {IGameData} from '../login.interfaces';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+import {LoginService} from '../login.service';
 
 @Component({
     selector: 'app-create-game',
@@ -12,7 +12,8 @@ export class CreateGameComponent implements OnInit {
 
     newGameForm: FormGroup;
 
-    constructor(private loginService: LoginService, private formBuilder: FormBuilder) {
+    constructor(private loginService: LoginService,
+                private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
@@ -23,10 +24,11 @@ export class CreateGameComponent implements OnInit {
     }
 
     onSubmit() {
-        this.loginService.create(this.newGameForm.value)
-            .subscribe((gameData: IGameData) => {
-                console.log(gameData);
-            });
+        this.loginService.create(this.newGameForm.value);
+        for (const name of Object.keys(this.newGameForm.controls)) {
+            this.newGameForm.controls[name].reset();
+            this.newGameForm.controls[name].setErrors(null);
+        }
     }
 
 }
