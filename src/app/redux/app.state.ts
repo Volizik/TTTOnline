@@ -4,4 +4,7 @@ export interface AppState {
     gameState: {
         games: IGameData[]
     };
+    settingsState: {
+        selectedTabIndex: number
+    };
 }

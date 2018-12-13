@@ -1,7 +1,8 @@
 import * as mongoose from 'mongoose';
-import {GameSchema} from '../models/gameModel';
 import {Request, Response} from 'express';
-import IGame from '../interfaces/iGame';
+
+import {GameSchema} from '../models/gameModel';
+import {IGame} from '../interfaces/iGame';
 import {TttLogic} from '../helpers/ttt.logic';
 
 const Game = mongoose.model('Game', GameSchema);
@@ -10,7 +11,7 @@ export class GameController {
 
     public create(req: Request, res: Response): void {
         try {
-            Game.findOne({name: req.body.name}, function (err, doc) {
+            Game.findOne({name: req.body.name}, function (err: Error, doc: IGame) {
                 if (err) {
                     res.send(err);
                 }
@@ -22,50 +23,58 @@ export class GameController {
                         if (err) {
                             res.send(error);
                         }
-                        res.status(201).json(game);
+                        res.status(201).json({ status: 'OK', gameObj: game});
                     });
                 }
             });
         } catch (e) {
-            res.send(e);
+            res.send({status: 'ERROR', error: e});
         }
     }
 
     public join(req: Request, res: Response): void {
-        Game.findOne({_id: req.body._id}, function (err: Error, doc) {
-            if (err) {
-                res.send(err);
-            }
-            // Если пароль подходит
-            if (req.body.password === doc.password) {
-                doc.status = 'in_progress';
-                doc.save((error: Error, game: IGame) => {
-                    if (error) {
-                        res.send(error);
-                    }
-                    res.status(200).json(game);
-                });
-            } else {
-                // Если пароль не подходит
-                res.sendStatus(403);
-            }
-        });
+        try {
+            Game.findOne({_id: req.body._id}, function (err: Error, doc) {
+                if (err) {
+                    res.send(err);
+                }
+                // Если пароль подходит
+                if (req.body.password === doc.password) {
+                    doc.status = 'in_progress';
+                    doc.save((error: Error, game: IGame) => {
+                        if (error) {
+                            res.send(error);
+                        }
+                        res.status(200).json({status: 'OK', gameObj: game});
+                    });
+                } else {
+                    // Если пароль не подходит
+                    res.sendStatus(403);
+                }
+            });
+        } catch (e) {
+            res.send({status: 'ERROR', error: e});
+        }
     }
 
     public get_games(req: Request, res: Response): void {
-        Game.find({status: 'waiting'}, function (err, docs) {
-            res.status(200).send(docs);
-        });
+        try {
+            Game.find({status: 'waiting'}, function (err: Error, docs: IGame[]) {
+                res.status(200).send({gameArr: docs, status: 'OK'});
+            });
+        } catch (e) {
+            res.send({status: 'ERROR', error: e});
+        }
     }
 
     public set_step(req: Request, res: Response): void {
         const result = new TttLogic(req.body).checkIfWin();
         if (result === '') {
-            res.status(200).json({status: `OK`});
+            res.status(200).json({status: 'OK'});
         } else if (result === 'x') {
-            res.status(200).json({status: 'x'});
+            res.status(200).json({status: 'OK', winner: 'x'});
         } else {
-            res.status(200).json({status: 'o'});
+            res.status(200).json({status: 'OK', winner: 'o'});
         }
     }
 }

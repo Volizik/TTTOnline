@@ -20,8 +20,9 @@ export class JoinGameComponent implements OnInit {
     searchControl = new FormControl();
     filteredItems: Observable<IGameData[]>;
 
-    constructor(public dialog: MatDialog, private loginService: LoginService, private store: Store<AppState>) {
-    }
+    constructor(public dialog: MatDialog,
+                private loginService: LoginService,
+                private store: Store<AppState>) {}
 
     ngOnInit() {
         this.store.pipe(select((state: any) => state.gameState.games))

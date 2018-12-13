@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+
 import {IGameData} from '../login.interfaces';
+import {LoginService} from '../login.service';
 
 @Component({
     selector: 'app-login-pass-modal',
@@ -10,12 +12,16 @@ import {IGameData} from '../login.interfaces';
 export class LoginPassModalComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<LoginPassModalComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: IGameData) {
-
-    }
+                @Inject(MAT_DIALOG_DATA) public data: IGameData,
+                private loginService: LoginService) {}
 
     ngOnInit() {
         console.log(this.data);
+    }
+
+    joinGame() {
+        this.loginService.join(this.data);
+        this.dialogRef.close();
     }
 
 }

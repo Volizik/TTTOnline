@@ -15,6 +15,7 @@ import {LoginPassModalComponent} from './login/login-pass-modal/login-pass-modal
 import {JoinGameComponent} from './login/join-game/join-game.component';
 import {CreateGameComponent} from './login/create-game/create-game.component';
 import {gameReducer} from './redux/game.reducer';
+import {settingsReducer} from './redux/settings.reducer';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,7 @@ import {gameReducer} from './redux/game.reducer';
         ReactiveFormsModule,
         AppRoutingModule,
         AppMaterialModule,
-        StoreModule.forRoot({gameState: gameReducer})
+        StoreModule.forRoot({gameState: gameReducer, settingsState: settingsReducer})
     ],
     providers: [],
     entryComponents: [

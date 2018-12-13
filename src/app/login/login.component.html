@@ -1,5 +1,5 @@
 <div class="login">
-  <mat-tab-group>
+  <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="selectTab($event)">
     <mat-tab label="New game">
       <div class="content">
         <app-create-game></app-create-game>

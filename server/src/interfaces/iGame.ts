@@ -1,4 +1,4 @@
-export default interface IGame {
+export interface IGame {
     name: string;
     password: string;
     created_at?: string;
