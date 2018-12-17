@@ -3,7 +3,6 @@ import {Request, Response} from 'express';
 
 import {GameSchema} from '../models/gameModel';
 import {IGame} from '../interfaces/iGame';
-import {TttLogic} from '../helpers/ttt.logic';
 
 const Game = mongoose.model('Game', GameSchema);
 
@@ -34,7 +33,7 @@ export class GameController {
 
     public join(req: Request, res: Response): void {
         try {
-            Game.findOne({_id: req.body._id}, function (err: Error, doc) {
+            Game.findOne({_id: req.body.id}, function (err: Error, doc) {
                 if (err) {
                     res.send(err);
                 }
@@ -64,17 +63,6 @@ export class GameController {
             });
         } catch (e) {
             res.send({status: 'ERROR', error: e});
-        }
-    }
-
-    public set_step(req: Request, res: Response): void {
-        const result = new TttLogic(req.body).checkIfWin();
-        if (result === '') {
-            res.status(200).json({status: 'OK'});
-        } else if (result === 'x') {
-            res.status(200).json({status: 'OK', winner: 'x'});
-        } else {
-            res.status(200).json({status: 'OK', winner: 'o'});
         }
     }
 }

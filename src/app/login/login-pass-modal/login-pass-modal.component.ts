@@ -11,16 +11,19 @@ import {LoginService} from '../login.service';
 })
 export class LoginPassModalComponent implements OnInit {
 
+    private password = '';
+
     constructor(public dialogRef: MatDialogRef<LoginPassModalComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: IGameData,
-                private loginService: LoginService) {}
+                private loginService: LoginService) {
+    }
 
     ngOnInit() {
         console.log(this.data);
     }
 
-    joinGame() {
-        this.loginService.join(this.data);
+    joinGame(): void {
+        this.loginService.join({id: this.data._id, password: this.password});
         this.dialogRef.close();
     }
 

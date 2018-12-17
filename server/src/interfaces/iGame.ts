@@ -5,3 +5,7 @@ export interface IGame {
     _id?: string;
     status?: string;
 }
+export interface IGameWinner {
+    status: string;
+    winner?: string;
+}

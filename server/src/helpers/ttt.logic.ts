@@ -2,9 +2,11 @@ import {IBoard} from '../interfaces/iBoard';
 
 export class TttLogic {
 
-    constructor(private board: IBoard) {}
+    private board: IBoard = {};
+    constructor() {}
 
-    public checkIfWin(): string {
+    public checkIfWin(board): string {
+        this.board = Object.assign(this.board, JSON.parse(board));
         if (this.horizontal()) {
             return this.horizontal();
         }

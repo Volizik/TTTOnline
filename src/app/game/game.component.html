@@ -1,17 +1,12 @@
 <div class="game">
   <div class="dashboard">
-    <mat-card>
-      <div class="ttt-desc">
-        <button><span></span></button>
-        <button><span></span></button>
-        <button><span></span></button>
-        <button><span></span></button>
-        <button><span></span></button>
-        <button><span></span></button>
-        <button><span></span></button>
-        <button><span></span></button>
-        <button><span></span></button>
-      </div>
-    </mat-card>
+    <h1 class="message" *ngIf="!anotherPlayer; else board">Waiting for another player...</h1>
+    <ng-template #board>
+      <mat-card >
+        <div class="ttt-desc">
+          <button *ngFor="let cell of arrayOne(9), let i = index" (click)="makeStep(i)"><span></span></button>
+        </div>
+      </mat-card>
+    </ng-template>
   </div>
 </div>

@@ -29,7 +29,7 @@ export class CreateGameComponent implements OnInit {
             this.newGameForm.controls[name].reset();
             this.newGameForm.controls[name].setErrors(null);
         }
-        this.loginService.setTabIndex(1);
+        // this.loginService.setTabIndex(1);
     }
 
 }

@@ -13,6 +13,5 @@ export class Routes {
         app.post('/api/create', this.gameController.create);
         app.post('/api/join', this.gameController.join);
         app.get('/api/get_games', this.gameController.get_games);
-        app.post('/api/set_step', this.gameController.set_step);
     }
 }

@@ -6,7 +6,7 @@ import {Store} from '@ngrx/store';
 import {IGameData} from './login.interfaces';
 import {environment} from '../../environments/environment';
 import {AppState} from '../redux/app.state';
-import {AddGame, GetGames} from '../redux/game.action';
+import {AddGame, GetGames, SetPlayerMark} from '../redux/game.action';
 import {ITttServerResponseData} from '../shared.interfaces';
 import {SetTabIndex} from '../redux/settings.action';
 
@@ -28,17 +28,20 @@ export class LoginService {
                 }
                 if (res.status === 'OK') {
                     this.store.dispatch(new AddGame(res.gameObj));
+                    this.store.dispatch(new SetPlayerMark('x'));
+                    this.router.navigate(['/game', res.gameObj._id]);
                 }
             });
     }
 
-    public join(game: IGameData): void {
-        this.http.post<ITttServerResponseData>(`${environment.apiUrl}/join`, game)
+    public join({id, password}): void {
+        this.http.post<ITttServerResponseData>(`${environment.apiUrl}/join`, {id, password})
             .subscribe((res: ITttServerResponseData) => {
                 if (res.error) {
                     console.error(res.error);
                 }
                 if (res.status === 'OK') {
+                    this.store.dispatch(new SetPlayerMark('o'));
                     this.router.navigate(['/game', res.gameObj._id]);
                 }
             });

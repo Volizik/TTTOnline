@@ -4,6 +4,7 @@ import {IGameData} from '../login/login.interfaces';
 export namespace GAME_ACTION {
     export const GET_GAMES = 'GET_GAMES';
     export const ADD_GAME = 'ADD_GAME';
+    export const SET_PLAYER = 'SET_PLAYER';
 }
 
 export class GetGames implements Action {
@@ -16,4 +17,9 @@ export class AddGame implements Action {
     constructor(public payload: IGameData) {}
 }
 
-export type GamesAction = GetGames | AddGame;
+export class SetPlayerMark implements Action {
+    readonly type = GAME_ACTION.SET_PLAYER;
+    constructor(public payload: string) {}
+}
+
+export type GamesAction = GetGames | AddGame | SetPlayerMark;

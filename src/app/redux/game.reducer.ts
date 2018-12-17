@@ -1,7 +1,8 @@
 import {GAME_ACTION, GamesAction} from './game.action';
 
 const initialState = {
-    games: []
+    games: [],
+    player: ''
 };
 
 export function gameReducer(state = initialState, action: GamesAction) {
@@ -15,6 +16,11 @@ export function gameReducer(state = initialState, action: GamesAction) {
             return {
                 ...state,
                 games: [...state.games, action.payload]
+            };
+        case GAME_ACTION.SET_PLAYER:
+            return {
+                ...state,
+                player: action.payload
             };
         default:
             return state;
