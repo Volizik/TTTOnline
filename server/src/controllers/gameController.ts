@@ -10,7 +10,7 @@ export class GameController {
 
     public create(req: Request, res: Response): void {
         try {
-            Game.findOne({name: req.body.name}, function (err: Error, doc: IGame) {
+            Game.findOne({name: req.body.name, status: 'waiting'}, function (err: Error, doc: IGame) {
                 if (err) {
                     res.send(err);
                 }
@@ -22,7 +22,7 @@ export class GameController {
                         if (err) {
                             res.send(error);
                         }
-                        res.status(201).json({ status: 'OK', gameObj: game});
+                        res.status(201).json({status: 'OK', gameObj: game});
                     });
                 }
             });
@@ -65,4 +65,5 @@ export class GameController {
             res.send({status: 'ERROR', error: e});
         }
     }
+
 }

@@ -1,22 +1,24 @@
-import {IBoard} from '../interfaces/iBoard';
+import {IBoard, IBoardResponse} from '../interfaces/iBoard';
 
 export class TttLogic {
 
-    private board: IBoard = {};
+    private board: IBoard;
     constructor() {}
 
-    public checkIfWin(board): string {
-        this.board = Object.assign(this.board, JSON.parse(board));
+    public checkIfWin(board: IBoard): IBoardResponse {
+        this.board = board;
+        const res = {
+            board: board,
+            winner: ''
+        };
         if (this.horizontal()) {
-            return this.horizontal();
+            res.winner = this.horizontal();
+        } else if (this.vertical()) {
+            res.winner = this.vertical();
+        } else if (this.diagonal()) {
+            res.winner = this.diagonal();
         }
-        if (this.vertical()) {
-            return this.vertical();
-        }
-        if (this.diagonal()) {
-            return this.diagonal();
-        }
-        return '';
+        return res;
     }
 
     private horizontal(): string {

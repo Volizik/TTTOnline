@@ -25,7 +25,7 @@ export class WebsocketService {
         });
     }
 
-    public emitEvent(action: Action, data: any): void {
+    public emitEvent(action: Action, data?: any): void {
         this.socket.emit(action, data);
     }
 }

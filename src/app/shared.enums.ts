@@ -1,9 +1,13 @@
 export enum Action {
-    MAKE_STEP
+    MAKE_STEP = 'make_step',
+    CREATE_GAME = 'create_game',
+    JOIN_GAME = 'join_game',
 }
 
 export enum Event {
     CONNECT = 'connect',
     DISCONNECT = 'disconnect',
-    USER2_JOINED = 'user2_joined'
+    OPPONENT_JOINED = 'opponent_joined',
+    STEP_MADE = 'step_made',
+    OPPONENT_DISCONNECTED = 'opponent_disconnected',
 }

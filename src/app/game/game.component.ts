@@ -4,6 +4,7 @@ import {select, Store} from '@ngrx/store';
 import {GameService} from '../services/game.service';
 import {AppState} from '../redux/app.state';
 import {Board} from './board.model';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-game',
@@ -12,28 +13,34 @@ import {Board} from './board.model';
 })
 export class GameComponent implements OnInit {
 
-    private board = new Board();
-    private anotherPlayer = true;
+    private board: Board;
     private playerMark: string;
+    private isBoardActive: boolean;
+    private gameId: string;
 
     constructor(private gameService: GameService,
-                private store: Store<AppState>) {
-        this.store.pipe(select((state: any) => state.gameState.player))
-            .subscribe((playerMark) => {
-               this.playerMark = playerMark;
+                private store: Store<AppState>,
+                private router: Router) {
+        this.store.pipe(select((state: any) => state.gameState))
+            .subscribe((gameState) => {
+                this.playerMark = gameState.player;
+                this.isBoardActive = gameState.isBoardActive;
+                this.gameId = gameState.game_id;
+                this.board = gameState.board;
+                console.log(gameState.board);
+                // TODO Подписаться на изменения в стейте поля board!!!
             });
     }
 
     ngOnInit() {
-    }
-
-    arrayOne(n: number): any[] {
-        return Array(n);
+        if (this.gameId === '') {
+            this.router.navigate(['/']);
+        }
     }
 
     makeStep(i: number): void {
         this.board[`cell${i + 1}`] = this.playerMark;
-        console.log(this.board);
+        this.gameService.makeStep(this.board);
     }
 
 }

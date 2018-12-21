@@ -5,8 +5,8 @@ import * as cors from 'cors';
 import * as socketIo from 'socket.io';
 import * as http from 'http';
 
-import { Routes } from './routes';
-import { AppSocket } from './services/ws';
+import {Routes} from './routes';
+import {AppSocket} from './services/ws';
 
 class App {
 
@@ -28,16 +28,16 @@ class App {
     }
 
     private config(): void {
-        this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(bodyParser.urlencoded({extended: true}));
         this.app.use(bodyParser.json());
-        this.app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+        this.app.use(bodyParser.json({type: 'application/vnd.api+json'}));
         this.app.use(cors());
     }
 
     private mongoSetup(): void {
         mongoose.Promise = global.Promise;
         mongoose.set('useFindAndModify', false);
-        mongoose.connect(this.mongoUrl, { useNewUrlParser: true });
+        mongoose.connect(this.mongoUrl, {useNewUrlParser: true});
     }
 
     private socketListen(): void {

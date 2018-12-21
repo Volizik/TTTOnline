@@ -6,9 +6,10 @@ import {Store} from '@ngrx/store';
 import {IGameData} from './login.interfaces';
 import {environment} from '../../environments/environment';
 import {AppState} from '../redux/app.state';
-import {AddGame, GetGames, SetPlayerMark} from '../redux/game.action';
+import {AddGame, GetGames, SetPlayerMark, SetGameId} from '../redux/game.action';
 import {ITttServerResponseData} from '../shared.interfaces';
 import {SetTabIndex} from '../redux/settings.action';
+import {GameService} from '../services/game.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,8 @@ export class LoginService {
 
     constructor(private http: HttpClient,
                 private store: Store<AppState>,
-                private router: Router) {
+                private router: Router,
+                private gameService: GameService) {
     }
 
     public create(game: IGameData): void {
@@ -29,7 +31,10 @@ export class LoginService {
                 if (res.status === 'OK') {
                     this.store.dispatch(new AddGame(res.gameObj));
                     this.store.dispatch(new SetPlayerMark('x'));
-                    this.router.navigate(['/game', res.gameObj._id]);
+                    this.store.dispatch(new SetGameId(res.gameObj._id));
+                    this.router.navigate(['/game', res.gameObj._id]).then(() => {
+                        this.gameService.createGame();
+                    });
                 }
             });
     }
@@ -42,7 +47,10 @@ export class LoginService {
                 }
                 if (res.status === 'OK') {
                     this.store.dispatch(new SetPlayerMark('o'));
-                    this.router.navigate(['/game', res.gameObj._id]);
+                    this.store.dispatch(new SetGameId(res.gameObj._id));
+                    this.router.navigate(['/game', res.gameObj._id]).then(() => {
+                        this.gameService.joinGame();
+                    });
                 }
             });
     }

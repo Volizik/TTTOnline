@@ -1,9 +1,7 @@
 import * as socketIo from 'socket.io';
 import {Socket} from 'socket.io';
 
-import {IBoard} from '../interfaces/iBoard';
 import {TttLogic} from '../helpers/ttt.logic';
-import {IGameWinner} from '../interfaces/iGame';
 
 export class AppSocket {
 
@@ -18,45 +16,35 @@ export class AppSocket {
 
             console.log(`Socket ${socket.id} is connected!`);
 
-            this.initSocketActions(socket);
             this.initSocketEventListeners(socket);
 
             socket.on('disconnect', () => {
+                const game_id = socket.handshake['query']['game_id'];
+                socket.broadcast.to(game_id).emit('opponent_disconnected');
+                socket.leave(game_id);
                 console.log(`Socket ${socket.id} disconnected!`);
             });
 
         });
     }
 
-    private initSocketActions(socket: Socket): void {
-
-    }
-
     private initSocketEventListeners(socket: Socket): void {
-        socket.on('joinGame', (game_id: string) => {
+        socket.on('create_game', () => {
+            const game_id = socket.handshake['query']['game_id'];
             socket.join(game_id);
         });
 
-        socket.on('makeStep', (board: IBoard, game_id) => {
-            const result = this.makeStep(board);
-            socket.to(game_id).emit('stepMade', result);
+        socket.on('join_game', () => {
+            const game_id = socket.handshake['query']['game_id'];
+            socket.join(game_id);
+            socket.broadcast.to(game_id).emit('opponent_joined');
         });
 
-        socket.on('message', () => {
-            socket.emit('Hello!');
+        socket.on('make_step', (board) => {
+            const game_id = socket.handshake['query']['game_id'];
+            const result = this.result.checkIfWin(board);
+            socket.broadcast.to(game_id).emit('step_made', result);
         });
-    }
-
-    private makeStep(board: IBoard): IGameWinner {
-        const result = this.result.checkIfWin(board);
-        console.log(result)
-        if (result === '') {
-            return {status: 'OK'};
-        } else if (result === 'x') {
-            return {status: 'OK', winner: 'x'};
-        } else {
-            return {status: 'OK', winner: 'o'};
-        }
     }
 
 }
