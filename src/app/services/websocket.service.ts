@@ -15,8 +15,10 @@ export class WebsocketService {
     constructor() {
     }
 
-    public connect(): void {
-        this.socket = io.connect(environment.wsUrl);
+    public connect(game_id: string): void {
+        this.socket = io.connect(environment.wsUrl, {
+            query: { game_id }
+        });
     }
 
     public onEvent(event: Event): Observable<any> {

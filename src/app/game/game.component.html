@@ -2,7 +2,13 @@
   <div class="dashboard">
     <mat-card [class.boardDisable]="!isBoardActive">
       <div class="ttt-desc">
-        <button *ngFor="let cell of board | keyvalue, let i = index" (click)="makeStep(i)"><span>{{ cell.value }}</span></button>
+        <button
+                *ngFor="let cell of board | keyvalue, let i = index"
+                (click)="makeStep(i)"
+                [disabled]="cell.value !== ''"
+        >
+          <span>{{ cell.value }}</span>
+        </button>
       </div>
     </mat-card>
   </div>

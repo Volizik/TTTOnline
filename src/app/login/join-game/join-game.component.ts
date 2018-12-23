@@ -22,7 +22,8 @@ export class JoinGameComponent implements OnInit {
 
     constructor(public dialog: MatDialog,
                 private loginService: LoginService,
-                private store: Store<AppState>) {}
+                private store: Store<AppState>) {
+    }
 
     ngOnInit() {
         this.store.pipe(select((state: any) => state.gameState.games))
@@ -41,6 +42,10 @@ export class JoinGameComponent implements OnInit {
     }
 
     openPassModal(game: IGameData): void {
+        if (!game.password) {
+            console.log('game', game);
+            return this.loginService.join({id: game._id, password: game.password});
+        }
         const dialogRef = this.dialog.open(LoginPassModalComponent, {data: game});
     }
 }

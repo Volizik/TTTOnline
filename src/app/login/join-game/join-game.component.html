@@ -12,5 +12,6 @@
           mat-list-item
           *ngFor="let game of filteredItems | async"
           (click)="openPassModal(game)"
+          [ngClass]="{ private: game.password }"
   >{{ game.name }}</button>
 </mat-action-list>

@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 })
 export class GameComponent implements OnInit {
 
-    private board: Board;
+    public board: Board;
     private playerMark: string;
     private isBoardActive: boolean;
     private gameId: string;
@@ -27,8 +27,6 @@ export class GameComponent implements OnInit {
                 this.isBoardActive = gameState.isBoardActive;
                 this.gameId = gameState.game_id;
                 this.board = gameState.board;
-                console.log(gameState.board);
-                // TODO Подписаться на изменения в стейте поля board!!!
             });
     }
 

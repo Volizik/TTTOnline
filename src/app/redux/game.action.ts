@@ -8,7 +8,8 @@ export namespace GAME_ACTION {
     export const SET_PLAYER = 'SET_PLAYER';
     export const ACTIVE_BOARD = 'ACTIVE_BOARD';
     export const SET_GAME_ID = 'SET_GAME_ID';
-    export const SET_BOARD = 'SET_GAME_ID';
+    export const SET_BOARD = 'SET_BOARD';
+    export const CLEAR_BOARD = 'CLEAR_BOARD';
 }
 
 export class GetGames implements Action {
@@ -41,4 +42,9 @@ export class SetBoard implements Action {
     constructor(public payload: ServerBoardResponse) {}
 }
 
-export type GamesAction = GetGames | AddGame | SetPlayerMark | ActiveBoard | SetGameId | SetBoard;
+export class ClearBoard implements Action {
+    readonly type = GAME_ACTION.CLEAR_BOARD;
+    constructor() {}
+}
+
+export type GamesAction = GetGames | AddGame | SetPlayerMark | ActiveBoard | SetGameId | SetBoard | ClearBoard;

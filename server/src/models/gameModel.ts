@@ -9,7 +9,7 @@ export const GameSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        default: ''
     },
     created_date: {
         type: Date,

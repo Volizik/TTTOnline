@@ -1,0 +1,5 @@
+<form class="end-game-form">
+  <p class="full-width" *ngIf="data">Игра окончена, победитель {{ data }}</p>
+  <p class="full-width" *ngIf="!data">Игра окончена, соперник вышел!</p>
+  <button mat-raised-button color="primary" class="full-width button-create" (click)="endGame()">Ок</button>
+</form>

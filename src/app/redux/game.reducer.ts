@@ -41,6 +41,11 @@ export function gameReducer(state = initialState, action: GamesAction) {
                 ...state,
                 board: action.payload
             };
+        case GAME_ACTION.CLEAR_BOARD:
+            return {
+                ...state,
+                board: new Board()
+            };
         default:
             return state;
     }

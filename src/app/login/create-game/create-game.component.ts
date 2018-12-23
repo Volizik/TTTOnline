@@ -19,7 +19,7 @@ export class CreateGameComponent implements OnInit {
     ngOnInit() {
         this.newGameForm = this.formBuilder.group({
             name: ['', Validators.required],
-            password: ['', Validators.required]
+            password: ['']
         });
     }
 

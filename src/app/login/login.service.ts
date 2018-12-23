@@ -33,7 +33,7 @@ export class LoginService {
                     this.store.dispatch(new SetPlayerMark('x'));
                     this.store.dispatch(new SetGameId(res.gameObj._id));
                     this.router.navigate(['/game', res.gameObj._id]).then(() => {
-                        this.gameService.createGame();
+                        this.gameService.createGame(res.gameObj._id);
                     });
                 }
             });
@@ -49,7 +49,7 @@ export class LoginService {
                     this.store.dispatch(new SetPlayerMark('o'));
                     this.store.dispatch(new SetGameId(res.gameObj._id));
                     this.router.navigate(['/game', res.gameObj._id]).then(() => {
-                        this.gameService.joinGame();
+                        this.gameService.joinGame(res.gameObj._id);
                     });
                 }
             });

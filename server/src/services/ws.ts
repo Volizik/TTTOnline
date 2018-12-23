@@ -14,6 +14,7 @@ export class AppSocket {
     private listen(): void {
         this.io.on('connection', (socket: Socket) => {
 
+            console.log('query ', socket.handshake['query']);
             console.log(`Socket ${socket.id} is connected!`);
 
             this.initSocketEventListeners(socket);
@@ -43,7 +44,11 @@ export class AppSocket {
         socket.on('make_step', (board) => {
             const game_id = socket.handshake['query']['game_id'];
             const result = this.result.checkIfWin(board);
-            socket.broadcast.to(game_id).emit('step_made', result);
+            if (result.winner) {
+                this.io.in(game_id).emit('winner', result.winner);
+            } else {
+                socket.broadcast.to(game_id).emit('step_made', result);
+            }
         });
     }
 
