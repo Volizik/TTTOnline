@@ -17,7 +17,7 @@ class App {
     private readonly io: socketIo.Server;
     private readonly http: http.Server;
 
-    constructor(private NODE_ENV: string = 'production', private PORT: string = '2368') {
+    constructor(private NODE_ENV: string = process.env.NODE_ENV, private PORT: string = process.env.PORT || '5000') {
         this.app = express();
         this.http = http.createServer(this.app);
         this.io = socketIo(this.http);
