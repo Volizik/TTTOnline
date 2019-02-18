@@ -15,7 +15,7 @@ export class GameComponent implements OnInit {
 
     public board: Board;
     private playerMark: string;
-    private isBoardActive: boolean;
+    public isBoardActive: boolean;
     private gameId: string;
 
     constructor(private gameService: GameService,

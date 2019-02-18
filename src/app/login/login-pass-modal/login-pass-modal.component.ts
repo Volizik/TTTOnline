@@ -11,7 +11,7 @@ import {LoginService} from '../login.service';
 })
 export class LoginPassModalComponent implements OnInit {
 
-    private password = '';
+    public password = '';
 
     constructor(public dialogRef: MatDialogRef<LoginPassModalComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: IGameData,

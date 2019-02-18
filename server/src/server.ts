@@ -1,4 +1,4 @@
 import App from './app';
 
-const app = new App('development', '2368');
+const app = new App('production', '8087');
 

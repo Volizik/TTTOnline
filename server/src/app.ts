@@ -7,6 +7,9 @@ import * as http from 'http';
 
 import {Routes} from './routes';
 import {AppSocket} from './services/ws';
+import {Request} from 'express';
+import {Response} from 'express';
+import * as path from 'path';
 
 class App {
 
@@ -32,6 +35,7 @@ class App {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.json({type: 'application/vnd.api+json'}));
         this.app.use(cors());
+        this.app.use('/', express.static(path.resolve(__dirname, '../../dist/TTTonline')));
     }
 
     private mongoSetup(): void {
