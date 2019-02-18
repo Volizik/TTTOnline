@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript npm-run-all",
-    "postinstall": "run-s build && npm run server-build"
+    "postinstall": "npm run build && npm run server-build"
   },
   "private": true,
   "dependencies": {

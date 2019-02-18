@@ -7,8 +7,6 @@ import * as http from 'http';
 
 import {Routes} from './routes';
 import {AppSocket} from './services/ws';
-import {Request} from 'express';
-import {Response} from 'express';
 import * as path from 'path';
 
 class App {
